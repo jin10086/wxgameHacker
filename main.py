@@ -47,7 +47,7 @@ def run(session_id,score):
         "action_data": cipher_action_data
     }
     url = "https://mp.weixin.qq.com/wxagame/wxagame_settlement"
-    z = requests.post(url, json=jsdata, headers=headers)
+    z = requests.post(url, json=jsdata, headers=headers,verify=False)
     if z.ok:
         print(z.json())
         return True
