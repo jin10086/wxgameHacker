@@ -13,6 +13,7 @@ class WxapkgFile:
     offset = 0
     size = 0
 
+
 def run(fname):
     with open(fname, "rb") as f:
         root = os.path.dirname(os.path.realpath(f.name))
@@ -49,7 +50,7 @@ def run(fname):
         for i in range(fileCount):
             data = WxapkgFile()
             data.nameLen = struct.unpack('>L', f.read(4))[0]
-            data.name = str(f.read(data.nameLen),encoding='utf8')
+            data.name = str(f.read(data.nameLen), encoding='utf8')
             data.offset = struct.unpack('>L', f.read(4))[0]
             data.size = struct.unpack('>L', f.read(4))[0]
 
@@ -75,6 +76,8 @@ def run(fname):
 
         f.close()
 
+
 if __name__ == '__main__':
     fname = 'wx7c8d593b2c3a7703_3.wxapkg'
+    fname = '_1079392110_5.wxapkg'
     run(fname)

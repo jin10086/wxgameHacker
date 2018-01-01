@@ -16,7 +16,8 @@ Connection: Keep-Alive
 
 headers = headers_raw_to_dict(r_h)
 
-def run(session_id,score):
+
+def run(session_id, score):
     '''
 
     :param session_id: str,抓包后得到的session_id
@@ -29,13 +30,13 @@ def run(session_id,score):
         "game_data": "{}"
     }
     aes_key = session_id[0:16]
-    aes_iv  = aes_key
+    aes_iv = aes_key
     cryptor = AES.new(aes_key, AES.MODE_CBC, aes_iv)
     str_action_data = json.dumps(action_data).encode("utf-8")
     print("json_str_action_data ", str_action_data)
-    #Pkcs7
+    # Pkcs7
     length = 16 - (len(str_action_data) % 16)
-    str_action_data += bytes([length])*length
+    str_action_data += bytes([length]) * length
     cipher_action_data = base64.b64encode(cryptor.encrypt(str_action_data)).decode("utf-8")
     print("action_data ", cipher_action_data)
 
@@ -47,14 +48,15 @@ def run(session_id,score):
         "action_data": cipher_action_data
     }
     url = "https://mp.weixin.qq.com/wxagame/wxagame_settlement"
-    z = requests.post(url, json=jsdata, headers=headers,verify=False)
+    z = requests.post(url, json=jsdata, headers=headers, verify=False)
     if z.ok:
         print(z.json())
         return True
     else:
         print('刷分失败~')
 
+
 if __name__ == '__main__':
     session_id = ''
     score = 66666
-    run(session_id,score)
+    run(session_id, score)
