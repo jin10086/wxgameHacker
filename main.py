@@ -4,17 +4,6 @@ from Crypto.Cipher import AES
 import base64
 import json
 
-r_h = b'''charset: utf-8
-Accept-Encoding: gzip
-referer: https://servicewechat.com/wx7c8d593b2c3a7703/3/page-frame.html
-content-type: application/json
-User-Agent: MicroMessenger/6.6.1.1220(0x26060133) NetType/WIFI Language/zh_CN
-Content-Length: 431
-Host: mp.weixin.qq.com
-Connection: Keep-Alive
-'''
-
-headers = headers_raw_to_dict(r_h)
 
 
 def run(session_id, score):
@@ -46,7 +35,17 @@ def run(session_id, score):
         },
         "action_data": cipher_action_data
     }
-    url = "https://mp.weixin.qq.com/wxagame/wxagame_settlement"
+    url = "https://mp.weixin.qq.com/wxagame/wxagame_settlement"    
+    r_h = b'''charset: utf-8
+    Accept-Encoding: gzip
+    referer: https://servicewechat.com/wx7c8d593b2c3a7703/3/page-frame.html
+    content-type: application/json
+    User-Agent: MicroMessenger/6.6.1.1220(0x26060133) NetType/WIFI Language/zh_CN
+    Content-Length: %d
+    Host: mp.weixin.qq.com
+    Connection: Keep-Alive
+    ''' % len(jsdata)
+    headers = headers_raw_to_dict(r_h)
     z = requests.post(url, json=jsdata, headers=headers, verify=False)
     if z.ok:
         print(z.json())
