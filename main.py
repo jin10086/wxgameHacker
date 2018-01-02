@@ -26,8 +26,7 @@ def run(session_id, score):
     '''
     action_data = {
         "score": score,
-        "times": 123,
-        "game_data": "{}"
+        "times": 21
     }
     aes_key = session_id[0:16]
     aes_iv = aes_key
@@ -58,5 +57,5 @@ def run(session_id, score):
 
 if __name__ == '__main__':
     session_id = ''
-    score = 66666
+    score = 9999
     run(session_id, score)
